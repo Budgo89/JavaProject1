@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "csvReader"
+          class="com.budgo.service.CsvReader">
+        <constructor-arg name="path" value="JavaProject1/src/main/resources/questData.csv"/>
+    </bean>
+
+    <bean id = "csvReaderRecord"
+          factory-bean="csvReader"
+          factory-method="getRecords"/>
+
+    <bean id="cscParser"
+          class="com.budgo.service.CscParser">
+        <constructor-arg name="records" ref ="csvReaderRecord"/>
+    </bean>
+
+    <bean id="missons"
+        factory-bean="cscParser"
+        factory-method="getMission">
+    </bean>
+    <bean id="questionPrint"
+    class="com.budgo.service.QuestionPrint">
+        <constructor-arg name="missions" ref="missons"/>
+    </bean>
+</beans>
