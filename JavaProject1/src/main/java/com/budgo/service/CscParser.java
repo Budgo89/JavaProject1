@@ -3,19 +3,17 @@ package com.budgo.service;
 import com.budgo.domain.Mission;
 import com.budgo.domain.Missions;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class CscParser {
-    Iterable<CSVRecord> records;
-    private Missions mission;
 
-    public CscParser(Iterable<CSVRecord> records) {
-        this.records = records;
-        mission = new Missions();
-        parser();
+    public CscParser(CsvReader csvrecords, @Qualifier("missions") Missions mission) {
+        parser(csvrecords.getRecords(), mission);
     }
 
-    private void parser() {
+    private void parser(Iterable<CSVRecord> records, Missions mission) {
         for (CSVRecord record : records) {
             if (record.get(0).equals("id")) {
                 continue;
@@ -27,9 +25,5 @@ public class CscParser {
                     record.get(4),
                     record.get(5)));
         }
-    }
-
-    public Missions getMission() {
-        return mission;
     }
 }

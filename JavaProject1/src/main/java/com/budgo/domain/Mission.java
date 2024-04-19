@@ -35,4 +35,8 @@ public class Mission {
     public HashMap<Integer, String> getAnswers() {
         return answers;
     }
+
+    public int getRightAnswer() {
+        return rightAnswer;
+    }
 }
