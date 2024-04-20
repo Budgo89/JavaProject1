@@ -4,15 +4,16 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-@PropertySource("classpath:CsvConfig.properties")
+//@PropertySource("classpath:application.properties")
 @Service
 public class CsvReader {
 
@@ -20,8 +21,11 @@ public class CsvReader {
 
     private Iterable<CSVRecord> records;
 
-    public CsvReader(@Value("classpath:questData.csv") Resource resource) {
+    public CsvReader(@Value("${scvpath:text}") String path) {
+        Resource resource = new ClassPathResource(path);
+
         csvReader(resource);
+
     }
 
     private void csvReader(Resource resource) {
@@ -30,8 +34,8 @@ public class CsvReader {
                 .setSkipHeaderRecord(true)
                 .build();
         try {
-            InputStream is = resource.getInputStream();
-            Reader reader = new InputStreamReader(is);
+            InputStream inputStream = resource.getInputStream();
+            Reader reader = new InputStreamReader(inputStream);
             records = csvFormat.parse(reader);
         } catch (Exception e) {
             records = null;
