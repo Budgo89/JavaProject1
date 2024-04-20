@@ -1,8 +1,6 @@
 package com.budgo.domain;
 
-import org.springframework.stereotype.Component;
 
-@Component
 public class Student {
     private String name;
     private String Surname;

@@ -2,48 +2,45 @@ package com.budgo.service;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 
-//@PropertySource("classpath:application.properties")
-@Service
+@Component
 public class CsvReader {
 
-    private final String[] HEADERS = {"id", "question", "rightAnswer", "answer1", "answer2", "answer3"};
+    public CsvReader(){}
 
-    private Iterable<CSVRecord> records;
-
-    public CsvReader(@Value("${scvpath:text}") String path) {
-        Resource resource = new ClassPathResource(path);
-
-        csvReader(resource);
-
-    }
-
-    private void csvReader(Resource resource) {
+    public List<CSVRecord> csvReader(Resource resource, String[] HEADERS) {
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
                 .setHeader(HEADERS)
                 .setSkipHeaderRecord(true)
                 .build();
-        try {
-            InputStream inputStream = resource.getInputStream();
-            Reader reader = new InputStreamReader(inputStream);
+        Iterable<CSVRecord> records;
+
+        try (InputStream inputStream = resource.getInputStream();
+            Reader reader = new InputStreamReader(inputStream)){
             records = csvFormat.parse(reader);
+
+            var recordList = new ArrayList<CSVRecord>();
+            for(CSVRecord record : records ){
+                recordList.add(record);
+            }
+            return recordList;
+
         } catch (Exception e) {
-            records = null;
             System.out.println(e);
         }
+
+        return null;
     }
 
-    public Iterable<CSVRecord> getRecords() {
+/*    public Iterable<CSVRecord> getRecords() {
         return records;
-    }
+    }*/
 }
