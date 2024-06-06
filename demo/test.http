@@ -7,10 +7,27 @@ Content-Type: application/json
 
 {
   "userName": "Ivan",
+  "surname": "Ivanov",
   "answers": [
     {
       "answerId": 1,
+      "questionId": 1
+    },
+    {
+      "answerId": 2,
       "questionId": 2
+    },
+    {
+      "answerId": 3,
+      "questionId": 3
+    },
+    {
+      "answerId": 1,
+      "questionId": 4
+    },
+    {
+      "answerId": 1,
+      "questionId": 5
     }
   ]
 }
