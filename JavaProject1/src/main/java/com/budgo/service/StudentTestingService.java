@@ -12,16 +12,15 @@ public class StudentTestingService {
 
     private final Missions missions;
     private final Student student;
-    private final AnswerCheckingService answerCheckingService;
+    private final AnswerChecking answerCheckingService;
 
     private Scanner scanner = new Scanner(System.in);
 
-    public StudentTestingService(Missions missions, Student student,
-                                 AnswerCheckingService answerCheckingService) {
+    public StudentTestingService(MissionService missionService) {
 
-        this.missions = missions;
-        this.student = student;
-        this.answerCheckingService = answerCheckingService;
+        missions = missionService.getMissions();
+        student = new Student();
+        answerCheckingService = new AnswerChecking(missions);
 
         studentDataRequest();
         greetings();

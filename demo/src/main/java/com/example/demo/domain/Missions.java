@@ -1,4 +1,4 @@
-package com.budgo.domain;
+package com.example.demo.domain;
 
 
 import java.util.ArrayList;

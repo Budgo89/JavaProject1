@@ -2,7 +2,6 @@ package com.budgo.domain;
 
 import java.util.HashMap;
 
-
 public class Mission {
 
     private final int id;

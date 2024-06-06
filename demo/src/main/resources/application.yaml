@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo
+
+app:
+  test: test
+  csvPath: questData.csv
+  headers: ["id", "question", "rightAnswer", "answer1", "answer2", "answer3"]
+  locale: ru

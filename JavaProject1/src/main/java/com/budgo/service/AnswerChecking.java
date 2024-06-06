@@ -2,13 +2,11 @@ package com.budgo.service;
 
 import com.budgo.domain.Mission;
 import com.budgo.domain.Missions;
-import org.springframework.stereotype.Service;
 
-@Service
-public class AnswerCheckingService {
+public class AnswerChecking {
     private final Missions missions;
 
-    public AnswerCheckingService(Missions missions) {
+    public AnswerChecking(Missions missions) {
 
         this.missions = missions;
     }
