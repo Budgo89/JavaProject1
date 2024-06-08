@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.Mappers.MissionMapper;
+import com.example.demo.mappers.MissionMapper;
 import com.example.demo.configs.YamlProps;
 import com.example.demo.domain.Missions;
 import com.example.demo.domain.Student;
@@ -19,18 +19,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class QuestionController {
-
-    private final Missions missions;
-
     public final MissionMapper missionMapper;
     private final AnswerChecking answerChecking;
     private final MessageSource messageSource;
     private final YamlProps props;
+    MissionService missionService;
 
     public QuestionController(MissionService missionService, MissionMapper missionMapper,
                               AnswerChecking answerChecking, MessageSource messageSource,
                               YamlProps props) {
-        missions = missionService.getMissions();
+        this.missionService = missionService;
         this.missionMapper = missionMapper;
         this.answerChecking = answerChecking;
         this.messageSource = messageSource;
@@ -41,6 +39,7 @@ public class QuestionController {
     public List<MissionDTO> getQuestions(){
 
         List<MissionDTO> missionsDTO = new ArrayList<>();
+        var missions = missionService.getMissions();
 
         for (var mission : missions.missionList){
             missionsDTO.add(missionMapper.missionToMissionDTO(mission));

@@ -1,4 +1,4 @@
-package com.example.demo.Mappers;
+package com.example.demo.mappers;
 
 import com.example.demo.domain.Mission;
 import com.example.demo.dto.MissionDTO;
